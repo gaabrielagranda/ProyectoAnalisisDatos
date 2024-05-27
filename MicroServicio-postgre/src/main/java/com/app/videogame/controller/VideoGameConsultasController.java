@@ -1,8 +1,10 @@
 package com.app.videogame.controller;
 
-import com.app.videogame.modelo.dto.*;
+import com.app.videogame.modelo.entity.dto.*;
 import com.app.videogame.modelo.service.VideoGameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,8 @@ public class VideoGameConsultasController {
 
     @GetMapping(value = "/consulta/sales-of-top5")
     public List<PublisherSalesDTO> consultaTop5() {
-        return videoGameService.findTop5();
+        Pageable topFive = PageRequest.of(0, 5);
+        return videoGameService.findTop5ByOrderByTotalSalesDesc();
     }
 
     @GetMapping(value = "/consulta/sales-of-years")
@@ -41,8 +44,8 @@ public class VideoGameConsultasController {
         return videoGameService.findGlobalSales();
     }
 
-    @GetMapping(value = "/consulta/sales-of-region")
-    public List<RegionDTO> consultaRegions() {
-        return videoGameService.findRegions();
-    }
+//    @GetMapping(value = "/consulta/sales-of-region")
+//    public List<RegionDTO> consultaRegions() {
+//        return videoGameService.findRegions();
+//    }
 }

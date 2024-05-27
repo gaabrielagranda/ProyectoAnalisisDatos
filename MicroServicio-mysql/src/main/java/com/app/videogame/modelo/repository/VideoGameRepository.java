@@ -26,8 +26,19 @@ public interface VideoGameRepository extends JpaRepository<VideoGame, Long> {
     @Query(value = "SELECT NEW  com.app.videogame.modelo.dto.GlobalSalesDTO(ROUND(SUM(v.global_Sales),2)) from VideoGame v")
     List<GlobalSalesDTO> findGlobalSalesBy();
 
-//    @Query(value = "SELECT NEW com.app.videogame.modelo.dto.RegionDTO(ROUND(sum(v.na_sales),2), ROUND(sum(v.eu_sales),2), ROUND(sum(v.jp_sales),2)  from VVideoGame v ")
-//    List<RegionDTO> findRegionsBy();
+    @Query(value = "SELECT NEW com.app.videogame.modelo.dto.RegionDTO(ROUND(sum(v.na_Sales),2), ROUND(sum(v.eu_Sales),2), ROUND(sum(v.jp_Sales),2), ROUND(sum(v.global_Sales),2), ROUND(sum(v.other_Sales),2), v.year)  from VideoGame v group by v.year order by v.year ")
+    List<RegionDTO> findRegionsBy();
+
+    @Query(value = "SELECT NEW  com.app.videogame.modelo.dto.GlobalSalesDTO(ROUND(avg(v.global_Sales),3)) from VideoGame v")
+    List<GlobalSalesDTO> findAvgGlobalSalesBy();
+
+    @Query("SELECT new com.app.videogame.modelo.dto.CountDocument(count(v.id)) from VideoGame v")
+    CountDocument totalVideoGames();
+
+    @Query("SELECT new  com.app.videogame.modelo.dto.GenreSalesDTO(genre, sum(global_Sales)) FROM VideoGame  Group by genre order by genre Limit 1")
+    List<GenreSalesDTO> findGenre();
+
+
 
 }
 

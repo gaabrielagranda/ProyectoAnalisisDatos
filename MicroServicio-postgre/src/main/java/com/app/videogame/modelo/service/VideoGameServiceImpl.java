@@ -1,9 +1,10 @@
 package com.app.videogame.modelo.service;
 
-import com.app.videogame.modelo.dto.*;
-import com.app.videogame.modelo.entity.VideoGame;
+import com.app.videogame.modelo.entity.dto.*;
 import com.app.videogame.modelo.repository.VideoGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class VideoGameServiceImpl implements VideoGameService{
     @Autowired
     private VideoGameRepository videoGameRepository;
     @Override
-    public List<PublisherSalesDTO> findTop5() {
+    public List<PublisherSalesDTO> findTop5ByOrderByTotalSalesDesc() {
+
         return videoGameRepository.findTop5ByOrderByTotalSalesDesc();
     }
 
@@ -53,11 +55,10 @@ public class VideoGameServiceImpl implements VideoGameService{
         return videoGameRepository.findGenre();
     }
 
-    @Override
-    public List<RegionDTO> findRegions() {
-        return videoGameRepository.findRegionsBy();
-    }
 
-
+//    @Override
+//    public List<RegionDTO> findRegions() {
+//        return videoGameRepository.findRegionsBy();
+//    }
 
 }

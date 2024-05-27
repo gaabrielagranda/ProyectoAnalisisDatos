@@ -1,12 +1,14 @@
 package com.app.videogame.modelo.service;
 
-import com.app.videogame.modelo.dto.*;
-import com.app.videogame.modelo.entity.VideoGame;
+import com.app.videogame.modelo.entity.dto.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface VideoGameService {
-    List<PublisherSalesDTO> findTop5();
+
+
+    List<PublisherSalesDTO> findTop5ByOrderByTotalSalesDesc();
 
     List<YearsSelasDTO> findByYears();
 
@@ -21,9 +23,6 @@ public interface VideoGameService {
     CountDocument countVideoGame();
 
     List<GenreSalesDTO> findGenreBy();
-
-    List<RegionDTO> findRegions();
-
 
 
 
