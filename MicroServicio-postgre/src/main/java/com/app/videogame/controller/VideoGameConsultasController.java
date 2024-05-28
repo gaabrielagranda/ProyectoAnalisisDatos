@@ -1,7 +1,7 @@
 package com.app.videogame.controller;
 
-import com.app.videogame.modelo.entity.dto.*;
-import com.app.videogame.modelo.service.VideoGameService;
+import com.app.videogame.models.entity.dto.*;
+import com.app.videogame.models.service.VideoGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

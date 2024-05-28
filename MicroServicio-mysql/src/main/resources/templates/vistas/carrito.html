@@ -1,0 +1,14 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Carrito</title>
+</head>
+<body>
+<h1>Carrito de compras</h1>
+<div th:each="cartItem : ${cart}">
+    <h2 th:text="${cartItem.nombre}">Nombre del Producto</h2>
+    <p th:text="${cartItem.precio}">Precio del Producto</p>
+</div>
+</body>
+</html>

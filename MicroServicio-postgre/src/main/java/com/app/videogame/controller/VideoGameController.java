@@ -1,7 +1,7 @@
 package com.app.videogame.controller;
 
-import com.app.videogame.modelo.entity.VideoGame;
-import com.app.videogame.modelo.repository.VideoGameRepository;
+import com.app.videogame.models.entity.VideoGame;
+import com.app.videogame.models.repository.VideoGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

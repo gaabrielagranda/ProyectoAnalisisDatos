@@ -1,7 +1,7 @@
 package com.app.videogame.controller;
 
-import com.app.videogame.modelo.dto.*;
-import com.app.videogame.modelo.service.VideoGameService;
+import com.app.videogame.models.dto.*;
+import com.app.videogame.models.service.VideoGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
