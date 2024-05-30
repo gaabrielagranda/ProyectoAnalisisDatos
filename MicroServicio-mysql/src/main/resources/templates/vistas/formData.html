@@ -1,43 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"> <!-- Declaración del documento HTML5 y configuración de Thymeleaf -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/>
-    <link href="/css/styles.css" rel="stylesheet"/>
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <meta charset="UTF-8"> <!-- Configuración de codificación de caracteres UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Configuración de la vista para diseño responsivo -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Enlace a Bootstrap CSS para estilos -->
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/> <!-- Enlace a estilos para tablas -->
+    <link href="/css/styles.css" rel="stylesheet"/> <!-- Enlace a un archivo CSS personalizado -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> <!-- Enlace a FontAwesome para iconos -->
+    <title>Document</title> <!-- Título de la página -->
 </head>
 
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" th:href="@{/dashboard/inicio}">AnalyticWave</a>
-    <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-            class="fas fa-bars"></i></button>
-    <!-- Navbar Search-->
+    <a class="navbar-brand ps-3" href="index.html">AnalyticWave</a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
-                   aria-describedby="btnNavbarSearch"/>
-            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
-                    class="fas fa-search"></i></button>
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch"/>
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
         </div>
     </form>
-    <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                <li>
-                    <hr class="dropdown-divider"/>
-                </li>
                 <li><a class="dropdown-item" href="#!">Logout</a></li>
             </ul>
         </li>
@@ -49,7 +36,7 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" th:href="@{/dashboard/index}">
+                    <a class="nav-link" th:href="@{/dashboard/inicio}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
@@ -71,78 +58,72 @@
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                ConsoleCraze Corporation
+                Lugave
             </div>
         </nav>
     </div>
 
     <div id="layoutSidenav_content" class="container-fluid mt-4 pt-4">
         <main>
-            <div class="m-auto px-5 row justify-content-center align-items-center">
-                <form class="row g-3" th:action="@{/dashboard/insert}" th:object="${videogame}" method="POST">
-                    <div class="col-md-4 ">
-                        <label for="inputVideogame" class="form-label">Videogame</label>
-                        <input type="text" class="form-control" th:field="*{name}" id="inputVideogame">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputPlatform" class="form-label">Platform</label>
-                        <input type="text" class="form-control" th:field="*{platform}" id="inputPlatform">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="inputYear" class="form-label">Year</label>
-                        <input type="text" class="form-control" th:field="*{year}" id="inputYear">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputGenre" class="form-label">Genre</label>
-                        <input type="text" class="form-control" th:field="*{genre}" id="inputGenre">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputPublisher" class="form-label">Publisher</label>
-                        <input type="text" class="form-control" th:field="*{publisher}" id="inputPublisher">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="inputSalesNA" class="form-label">Sales in North America</label>
-                        <input type="text" class="form-control" th:field="*{naSales}" id="inputSalesNA">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="inputSalesEU" class="form-label">Sales in Europa</label>
-                        <input type="text" class="form-control" th:field="*{euSales}" id="inputSalesEU">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="inputSalesJP" class="form-label">Sales in Japan</label>
-                        <input type="text" class="form-control" th:field="*{jpSales}" id="inputSalesJP">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="inputSalesOther" class="form-label">Sales in Other</label>
-                        <input type="text" class="form-control" th:field="*{otherSales}" id="inputSalesOther">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="inputGlobalSales" class="form-label">Global Sales</label>
-                        <input type="text" class="form-control" th:field="*{globalSales}" id="inputGlobalSales">
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                    </div>
-                </form>
-            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="form-box">
+                        <div class="form-container">
+                            <h2 class="text-center mb-4">Nuevo Videojuego</h2>
+                            <form class="row g-3" th:action="@{/dashboard/insert}" th:object="${videogame}" method="POST">
+                                <div class="col-12">
+                                    <label for="inputVideogame" class="form-label">Videogame</label>
+                                    <input type="text" class="form-control" th:field="*{name}" id="inputVideogame">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputPlatform" class="form-label">Platform</label>
+                                    <input type="text" class="form-control" th:field="*{platform}" id="inputPlatform">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputYear" class="form-label">Year</label>
+                                    <input type="text" class="form-control" th:field="*{year}" id="inputYear">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputGenre" class="form-label">Genre</label>
+                                    <input type="text" class="form-control" th:field="*{genre}" id="inputGenre">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputPublisher" class="form-label">Publisher</label>
+                                    <input type="text" class="form-control" th:field="*{publisher}" id="inputPublisher">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputSalesNA" class="form-label">Sales in North America</label>
+                                    <input type="text" class="form-control" th:field="*{naSales}" id="inputSalesNA">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputSalesEU" class="form-label">Sales in Europe</label>
+                                    <input type="text" class="form-control" th:field="*{euSales}" id="inputSalesEU">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputSalesJP" class="form-label">Sales in Japan</label>
+                                    <input type="text" class="form-control" th:field="*{jpSales}" id="inputSalesJP">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputSalesOther" class="form-label">Sales in Other Regions</label>
+                                    <input type="text" class="form-control" th:field="*{otherSales}" id="inputSalesOther">
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
         </main>
-        <footer class="py-5 bg-light mt-auto">
-            <div class="container-fluid px-5">
+        <footer class="bg-light py-4 mt-auto">
+            <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
+                    <div class="text-muted">Copyright &copy; 2024 Lugave</div>
                 </div>
             </div>
         </footer>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-</body>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
+</body>
 </html>

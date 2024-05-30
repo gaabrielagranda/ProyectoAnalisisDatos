@@ -2,7 +2,6 @@ package com.app.videogame.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -19,43 +18,47 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // Configuración de la cadena de filtros de seguridad
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(authorize -> authorize
-                        // Configuración de la autorización de las solicitudes
-                        .requestMatchers("/dashboard/registrar/**", "/jss/**", "/css/**", "/assets/**", "/dashboard/registro-guardados","/video-game/home", "/video-game/juegos","video-game/add/{productId}","/video-game/ver").permitAll() // Permitir acceso a estas rutas sin autenticación
-                        .anyRequest().authenticated() // Requerir autenticación para cualquier otra solicitud
+        return http.authorizeHttpRequests(authorize -> {
+                            authorize
+                                    // Configuración de la autorización de las solicitudes
+                                    .requestMatchers("/security/registrar/**", "/js/**", "/css/**", "/assets/**","/designWeb/**", "/security/registro-guardados", "/web-games/index", "/web-games/browse", "/web-games/details","web-games/profile", "/web-games/streams").permitAll() // Permitir acceso a estas rutas sin autenticación
+                                    .anyRequest().authenticated();
+                        } // Requerir autenticación para cualquier otra solicitud
                 )
                 .formLogin(form -> form
-                        .loginPage("/dashboard/login")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/dashboard/inicio", true) // si el usuario es verdadero redirigeme a esta pagina
-                        .failureUrl("/dashboard/login?error")
-                        .permitAll()
+                        .loginPage("/security/login") // Página de inicio de sesión personalizada
+                        .loginProcessingUrl("/login") // URL de procesamiento de inicio de sesión
+                        .defaultSuccessUrl("/web-games/redirectByRole", true) // Redirección después de un inicio de sesión exitoso
+                        .failureUrl("/security/login?error") // Redirección después de un inicio de sesión fallido
+                        .permitAll() // Permitir acceso a la página de inicio de sesión sin autenticación
                 )
                 .logout(logout -> logout
                         // Configuración del cierre de sesión
                         .invalidateHttpSession(true) // Invalidar la sesión HTTP existente
                         .clearAuthentication(true) // Limpiar la autenticación existente
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // Especificar la URL de cierre de sesión
-                        .logoutSuccessUrl("/dashboard/login?logout") // Especificar la URL de redirección después del cierre de sesión
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // URL de cierre de sesión
+                        .logoutSuccessUrl("/web-games/home?logout") // Redirección después del cierre de sesión
                         .permitAll() // Permitir acceso a la URL de cierre de sesión sin autenticación
                 )
                 .build(); // Finalizar la configuración y construir el SecurityFilterChain
-
     }
 
+    // Codificador de contraseñas para cifrar las contraseñas de usuario
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
+    // Configuración del administrador de autenticación
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    // Proveedor de autenticación que utiliza el servicio de detalles de usuario y el codificador de contraseñas
     @Bean
     AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) throws Exception {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();

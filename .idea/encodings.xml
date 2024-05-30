@@ -2,7 +2,11 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/MicroServicio-mysql/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/MicroServicio-postgre/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/MicroServicio-usuario/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservicio-Gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservicio-Security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservicio-Video-Game-Consultas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Microservicio-commons-usuarios/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

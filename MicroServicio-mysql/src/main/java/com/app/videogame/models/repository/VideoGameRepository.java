@@ -8,43 +8,91 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repositorio para gestionar operaciones CRUD en la entidad VideoGame.
+ */
 @Repository
 public interface VideoGameRepository extends JpaRepository<VideoGame, Long> {
 
-
-    @Query(value = "SELECT NEW com.app.videogame.models.dto.PublisherSalesDTO(v.publisher, round(SUM(v.global_Sales),2)) FROM VideoGame v GROUP BY v.publisher ORDER BY SUM(v.global_Sales) DESC limit 5")
+    /**
+     * Obtiene los 5 principales editores ordenados por ventas globales totales en orden descendente.
+     *
+     * @return Lista de PublisherSalesDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.PublisherSalesDTO(v.publisher, ROUND(SUM(v.global_Sales), 2)) " +
+            "FROM VideoGame v GROUP BY v.publisher ORDER BY SUM(v.global_Sales) DESC")
     List<PublisherSalesDTO> findTop5ByOrderByTotalSalesDesc();
 
-    @Query(value = "SELECT NEW com.app.videogame.models.dto.YearsSelasDTO(v.year, ROUND(SUM(v.global_Sales),2)) from VideoGame v GROUP BY v.year order by v.year asc ")
+    /**
+     * Obtiene las ventas globales agrupadas por año en orden ascendente.
+     *
+     * @return Lista de YearsSelasDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.YearsSelasDTO(v.year, ROUND(SUM(v.global_Sales), 2)) " +
+            "FROM VideoGame v GROUP BY v.year ORDER BY v.year ASC")
     List<YearsSelasDTO> findYearsSelasBy();
 
-    @Query(value = "SELECT NEW com.app.videogame.models.dto.GenreSalesDTO(v.genre, ROUND(SUM(v.global_Sales),2)) from VideoGame v group by v.genre order by sum(v.global_Sales) desc")
+    /**
+     * Obtiene las ventas globales agrupadas por género en orden descendente.
+     *
+     * @return Lista de GenreSalesDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.GenreSalesDTO(v.genre, ROUND(SUM(v.global_Sales), 2)) " +
+            "FROM VideoGame v GROUP BY v.genre ORDER BY SUM(v.global_Sales) DESC")
     List<GenreSalesDTO> findGenresBy();
 
-    @Query(value = "SELECT NEW com.app.videogame.models.dto.PlatformSalesDTO(v.platform, ROUND(SUM(v.global_Sales),2)) from VideoGame v GROUP BY v.platform ORDER BY SUM(v.global_Sales) desc ")
+    /**
+     * Obtiene las ventas globales agrupadas por plataforma en orden descendente.
+     *
+     * @return Lista de PlatformSalesDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.PlatformSalesDTO(v.platform, ROUND(SUM(v.global_Sales), 2)) " +
+            "FROM VideoGame v GROUP BY v.platform ORDER BY SUM(v.global_Sales) DESC")
     List<PlatformSalesDTO> findPlatformsBy();
 
-    @Query(value = "SELECT NEW  com.app.videogame.models.dto.GlobalSalesDTO(ROUND(SUM(v.global_Sales),2)) from VideoGame v")
+    /**
+     * Obtiene las ventas globales totales.
+     *
+     * @return Lista de GlobalSalesDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.GlobalSalesDTO(ROUND(SUM(v.global_Sales), 2)) " +
+            "FROM VideoGame v")
     List<GlobalSalesDTO> findGlobalSalesBy();
 
-    @Query(value = "SELECT NEW com.app.videogame.models.dto.RegionDTO(ROUND(sum(v.na_Sales),2), ROUND(sum(v.eu_Sales),2), ROUND(sum(v.jp_Sales),2), ROUND(sum(v.global_Sales),2), ROUND(sum(v.other_Sales),2), v.year)  from VideoGame v group by v.year order by v.year ")
+    /**
+     * Obtiene las ventas por región agrupadas por año en orden ascendente.
+     *
+     * @return Lista de RegionDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.RegionDTO(ROUND(SUM(v.na_Sales), 2), ROUND(SUM(v.eu_Sales), 2), " +
+            "ROUND(SUM(v.jp_Sales), 2), ROUND(SUM(v.other_Sales), 2), ROUND(SUM(v.global_Sales), 2), v.year) " +
+            "FROM VideoGame v GROUP BY v.year ORDER BY v.year ASC")
     List<RegionDTO> findRegionsBy();
 
-    @Query(value = "SELECT NEW  com.app.videogame.models.dto.GlobalSalesDTO(ROUND(avg(v.global_Sales),3)) from VideoGame v")
+    /**
+     * Obtiene el promedio de ventas globales.
+     *
+     * @return Lista de GlobalSalesDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.GlobalSalesDTO(ROUND(AVG(v.global_Sales), 3)) " +
+            "FROM VideoGame v")
     List<GlobalSalesDTO> findAvgGlobalSalesBy();
 
-    @Query("SELECT new com.app.videogame.models.dto.CountDocument(count(v.id)) from VideoGame v")
+    /**
+     * Obtiene el total de videojuegos.
+     *
+     * @return CountDocument.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.CountDocument(COUNT(v.id)) " +
+            "FROM VideoGame v")
     CountDocument totalVideoGames();
 
-    @Query("SELECT new  com.app.videogame.models.dto.GenreSalesDTO(genre, sum(global_Sales)) FROM VideoGame  Group by genre order by genre Limit 1")
-    List<GenreSalesDTO> findGenre();
-
-
-
+    /**
+     * Obtiene el género con la mayor venta global.
+     *
+     * @return Lista de GenreSalesDTO.
+     */
+    @Query("SELECT NEW com.app.videogame.models.dto.GenreSalesDTO(v.genre, SUM(v.global_Sales)) " +
+            "FROM VideoGame v GROUP BY v.genre ORDER BY SUM(v.global_Sales) DESC")
+    List<GenreSalesDTO> findTopGenreBySales();
 }
-
-
-
-
-
-

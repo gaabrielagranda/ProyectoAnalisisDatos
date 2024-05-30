@@ -2,17 +2,35 @@ package com.app.videogame.models.dto;
 
 import java.io.Serializable;
 
-public class PublisherSalesDTO  implements Serializable {
-    private String publisher;
-    private double totalSales; // O el tipo de dato adecuado para las ventas totales
+/**
+ * Clase DTO (Data Transfer Object) que representa las ventas totales por editor de videojuegos.
+ */
+public class PublisherSalesDTO implements Serializable {
 
-    // Constructor
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Editor de videojuegos.
+     */
+    private String publisher;
+
+    /**
+     * Ventas totales en millones.
+     */
+    private double totalSales;
+
+    /**
+     * Constructor con parámetros.
+     *
+     * @param publisher Editor de videojuegos.
+     * @param totalSales Ventas totales en millones.
+     */
     public PublisherSalesDTO(String publisher, double totalSales) {
         this.publisher = publisher;
         this.totalSales = totalSales;
     }
 
-    // Getters y setters
+    // Métodos getter y setter
 
     public String getPublisher() {
         return publisher;
@@ -37,6 +55,4 @@ public class PublisherSalesDTO  implements Serializable {
                 ", totalSales=" + totalSales +
                 '}';
     }
-
-    // Opcional: puedes agregar otros métodos si es necesario
 }

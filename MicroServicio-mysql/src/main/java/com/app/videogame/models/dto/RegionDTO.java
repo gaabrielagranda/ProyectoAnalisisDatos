@@ -2,8 +2,13 @@ package com.app.videogame.models.dto;
 
 import java.io.Serializable;
 
-public class RegionDTO implements Serializable
-{
+/**
+ * Clase DTO (Data Transfer Object) que representa las ventas de videojuegos por región y globalmente para un año específico.
+ */
+public class RegionDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private int year;
     private double eu_Sales;
     private double jp_Sales;
@@ -11,6 +16,16 @@ public class RegionDTO implements Serializable
     private double other_sales;
     private double global_Sales;
 
+    /**
+     * Constructor con parámetros.
+     *
+     * @param eu_Sales Ventas en Europa.
+     * @param jp_Sales Ventas en Japón.
+     * @param na_Sales Ventas en América del Norte.
+     * @param other_sales Ventas en otras regiones.
+     * @param global_Sales Ventas globales.
+     * @param year Año de las ventas.
+     */
     public RegionDTO(double eu_Sales, double jp_Sales, double na_Sales, double other_sales, double global_Sales, int year) {
         this.eu_Sales = eu_Sales;
         this.jp_Sales = jp_Sales;
@@ -19,6 +34,8 @@ public class RegionDTO implements Serializable
         this.global_Sales = global_Sales;
         this.year = year;
     }
+
+    // Métodos getter y setter
 
     public int getYear() {
         return year;

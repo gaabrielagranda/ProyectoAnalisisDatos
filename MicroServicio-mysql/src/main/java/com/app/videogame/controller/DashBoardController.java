@@ -22,73 +22,70 @@ import java.util.List;
 @RequestMapping(value = "/dashboard")
 public class DashBoardController {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
+    // Repositorio para manejar operaciones relacionadas con videojuegos
     @Autowired
     private VideoGameRepository videoGameRepository;
 
+    // Servicio para proporcionar operaciones relacionadas con videojuegos
     @Autowired
     private VideoGameService videoGameService;
 
+    // Maneja la solicitud para la página de inicio del panel de control
     @GetMapping(value = "/inicio")
     public String inicio(Model model) {
+        // Recupera los videojuegos existentes
         List<VideoGame> videoGames = videoGameRepository.findAll();
 
+        // Agrega los datos al modelo para mostrar en la vista
         model.addAttribute("videogames", videoGames);
         model.addAttribute("totalSales", videoGameService.findGlobalSales());
         model.addAttribute("promedioTotalSales", videoGameService.findAvgGlobalSales());
         model.addAttribute("countDocument", videoGameService.countVideoGame());
         model.addAttribute("genreVideoGame", videoGameService.findGenreBy());
+
+        // Devuelve la vista de inicio
         return "./vistas/index";
     }
 
+    // Maneja la solicitud para la página de formulario de datos
     @GetMapping(value = "/formData")
     public String formData(Model model) {
+        // Crea un nuevo videojuego y lo agrega al modelo
         VideoGame videoGame = new VideoGame();
         model.addAttribute("videogame", videoGame);
+
+        // Devuelve la vista del formulario de datos
         return "./vistas/formData";
     }
+
+    // Maneja la solicitud para insertar un nuevo videojuego
     @PostMapping(value = "/insert")
     public String insert(VideoGame videoGame) {
+        // Guarda el videojuego en el repositorio
         videoGameRepository.save(videoGame);
+
+        // Redirige a la página principal del panel de control
         return "redirect:/dashboard";
     }
 
+    // Maneja la solicitud para la página de gráficos
     @GetMapping(value = "/charts")
     public String charts() {
+        // Devuelve la vista de gráficos
         return "./vistas/charts";
     }
 
+    // Maneja la solicitud para la página de tabla de videojuegos
     @GetMapping(value = "/table")
     public String table(Model model) {
+        // Recupera todos los videojuegos existentes
         List<VideoGame> videoGames = videoGameRepository.findAll();
+
+        // Agrega los videojuegos al modelo para mostrar en la vista
         model.addAttribute("videogames", videoGames);
 
+        // Devuelve la vista de tabla de videojuegos
         return "./vistas/tables";
     }
-
-    @GetMapping(value = "/login")
-    public String login() {
-        return "./vistas/login";
-    }
-
-    @GetMapping(value = "/registrar")
-    public String registrar(Model model) {
-        UsuarioRegistarDto usuarioRegistarDto = new UsuarioRegistarDto();
-        model.addAttribute("usuarioRegistarDto", usuarioRegistarDto);
-        return "./vistas/register";
-    }
-
-    @PostMapping(value = "/registro-guardados")
-    public String registroGuardados(UsuarioRegistarDto usuarioRegistarDto) {
-            Usuario usuario = new Usuario(usuarioRegistarDto.getNombre(), usuarioRegistarDto.getApellido(), usuarioRegistarDto.getEmail(), passwordEncoder.encode(usuarioRegistarDto.getPassword()), Arrays.asList(new Rol("ROLE_USER")));
-           usuarioRepository.save(usuario);
-
-           return "redirect:/dashboard/login";
-    }
-
 }
