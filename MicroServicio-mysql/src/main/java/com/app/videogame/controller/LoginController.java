@@ -48,7 +48,7 @@ public class LoginController {
     @PostMapping(value = "/registro-guardados")
     public String registroGuardados(UsuarioRegistarDto usuarioRegistarDto) {
         // Crea un nuevo usuario con la información proporcionada
-        Usuario usuario = new Usuario(usuarioRegistarDto.getNombre(), usuarioRegistarDto.getApellido(), usuarioRegistarDto.getEmail(), passwordEncoder.encode(usuarioRegistarDto.getPassword()), Arrays.asList(new Rol("ROLE_ADMIN")));
+        Usuario usuario = new Usuario(usuarioRegistarDto.getNombre(), usuarioRegistarDto.getApellido(), usuarioRegistarDto.getEmail(), passwordEncoder.encode(usuarioRegistarDto.getPassword()), Arrays.asList(new Rol("ROLE_INVITE")));
 
         // Guarda el usuario en el repositorio de usuarios
         usuarioRepository.save(usuario);

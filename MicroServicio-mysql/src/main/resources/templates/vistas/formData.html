@@ -69,8 +69,12 @@
                 <div class="col-md-8">
                     <div class="form-box">
                         <div class="form-container">
-                            <h2 class="text-center mb-4">Nuevo Videojuego</h2>
+                            <h1 th:if="${videogame.id == null}"> Agregar Videojuego </h1>
+                            <h1 th:unless="${videogame.id == null}"> Editar Videojuego </h1>
                             <form class="row g-3" th:action="@{/dashboard/insert}" th:object="${videogame}" method="POST">
+
+                                <input type="hidden" th:field="*{id}" th:value="${videogame.id}"/>
+
                                 <div class="col-12">
                                     <label for="inputVideogame" class="form-label">Videogame</label>
                                     <input type="text" class="form-control" th:field="*{name}" id="inputVideogame">
@@ -106,6 +110,10 @@
                                 <div class="col-12">
                                     <label for="inputSalesOther" class="form-label">Sales in Other Regions</label>
                                     <input type="text" class="form-control" th:field="*{otherSales}" id="inputSalesOther">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputSalesOther" class="form-label">Global Sales</label>
+                                    <input type="text" class="form-control" th:field="*{globalSales}" id="inputSalesGlobal">
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Save</button>

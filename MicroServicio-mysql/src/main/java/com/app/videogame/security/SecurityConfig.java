@@ -21,12 +21,10 @@ public class SecurityConfig {
     // Configuración de la cadena de filtros de seguridad
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(authorize -> {
-                            authorize
-                                    // Configuración de la autorización de las solicitudes
-                                    .requestMatchers("/security/registrar/**", "/js/**", "/css/**", "/assets/**","/designWeb/**", "/security/registro-guardados", "/web-games/index", "/web-games/browse", "/web-games/details","web-games/profile", "/web-games/streams").permitAll() // Permitir acceso a estas rutas sin autenticación
-                                    .anyRequest().authenticated();
-                        } // Requerir autenticación para cualquier otra solicitud
+        return http.authorizeHttpRequests(authorize -> authorize
+                // Configuración de la autorización de las solicitudes
+                .requestMatchers("/security/registrar/**", "/js/**", "/css/**", "/assets/**","/designWeb/**", "/security/registro-guardados", "/web-games/home", "/web-games/browse", "/web-games/details","web-games/profile", "/web-games/streams").permitAll() // Permitir acceso a estas rutas sin autenticación
+                .anyRequest().authenticated() // Requerir autenticación para cualquier otra solicitud
                 )
                 .formLogin(form -> form
                         .loginPage("/security/login") // Página de inicio de sesión personalizada
@@ -60,7 +58,7 @@ public class SecurityConfig {
 
     // Proveedor de autenticación que utiliza el servicio de detalles de usuario y el codificador de contraseñas
     @Bean
-    AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) throws Exception {
+    AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService)  {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
