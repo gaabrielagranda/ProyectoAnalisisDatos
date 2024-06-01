@@ -70,7 +70,6 @@ public class DashBoardController {
         // Devuelve la vista de inicio
         return "./vistas/index";
     }
-
     @GetMapping(value = "/editar/{id}")
     public String mostrarFormularioDeModificarPaciente(@PathVariable("id") Long id, Model model){
 

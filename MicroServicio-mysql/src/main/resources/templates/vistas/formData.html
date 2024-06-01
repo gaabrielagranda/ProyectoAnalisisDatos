@@ -8,24 +8,30 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/> <!-- Enlace a estilos para tablas -->
     <link href="/css/styles.css" rel="stylesheet"/> <!-- Enlace a un archivo CSS personalizado -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script> <!-- Enlace a FontAwesome para iconos -->
-    <title>Document</title> <!-- Título de la página -->
+    <title>Insert Game</title> <!-- Título de la página -->
 </head>
-
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand ps-3" href="index.html">AnalyticWave</a>
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" th:href="@{/dashboard/inicio}">Lugave</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+            class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch"/>
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                   aria-describedby="btnNavbarSearch"/>
             <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
         </div>
     </form>
+    <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
+                <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
             </ul>
         </li>
     </ul>
@@ -35,17 +41,18 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <div class="sb-sidenav-menu-heading">General</div>
                     <a class="nav-link" th:href="@{/dashboard/inicio}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
-                    <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link" th:href="@{/dashboard/formData}">
+                    <div class="sb-sidenav-menu-heading">New</div>
+                    <a class="nav-link" th:href="@{/dashboard/formData}"
+                       th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Insert Data
                     </a>
-                    <div class="sb-sidenav-menu-heading">Addons</div>
+                    <div class="sb-sidenav-menu-heading">Other Actions</div>
                     <a class="nav-link" th:href="@{/dashboard/charts}" target="_blank">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Charts
@@ -54,73 +61,78 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Tables
                     </a>
+                    <a class="nav-link" th:href="@{/web-games/home}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div>
+                        Video-Game-page
+                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                Lugave
+                <span th:if="${usuario != null}" th:text="${usuario.nombre + ' ' + usuario.apellido}"></span>
             </div>
         </nav>
     </div>
 
     <div id="layoutSidenav_content" class="container-fluid mt-4 pt-4">
-        <main>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="form-box">
-                        <div class="form-container">
-                            <h1 th:if="${videogame.id == null}"> Agregar Videojuego </h1>
-                            <h1 th:unless="${videogame.id == null}"> Editar Videojuego </h1>
-                            <form class="row g-3" th:action="@{/dashboard/insert}" th:object="${videogame}" method="POST">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-box">
+                    <div class="form-container">
+                        <h1 th:if="${videogame.id == null}"> Add a VideoGame </h1>
+                        <h1 th:unless="${videogame.id == null}"> Edit VideoGame </h1>
+                        <form class="row g-3" th:action="@{/dashboard/insert}" th:object="${videogame}" method="POST">
 
-                                <input type="hidden" th:field="*{id}" th:value="${videogame.id}"/>
+                            <input type="hidden" th:field="*{id}" th:value="${videogame.id}"/>
 
-                                <div class="col-12">
-                                    <label for="inputVideogame" class="form-label">Videogame</label>
-                                    <input type="text" class="form-control" th:field="*{name}" id="inputVideogame">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputPlatform" class="form-label">Platform</label>
-                                    <input type="text" class="form-control" th:field="*{platform}" id="inputPlatform">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputYear" class="form-label">Year</label>
-                                    <input type="text" class="form-control" th:field="*{year}" id="inputYear">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputGenre" class="form-label">Genre</label>
-                                    <input type="text" class="form-control" th:field="*{genre}" id="inputGenre">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputPublisher" class="form-label">Publisher</label>
-                                    <input type="text" class="form-control" th:field="*{publisher}" id="inputPublisher">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputSalesNA" class="form-label">Sales in North America</label>
-                                    <input type="text" class="form-control" th:field="*{naSales}" id="inputSalesNA">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputSalesEU" class="form-label">Sales in Europe</label>
-                                    <input type="text" class="form-control" th:field="*{euSales}" id="inputSalesEU">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputSalesJP" class="form-label">Sales in Japan</label>
-                                    <input type="text" class="form-control" th:field="*{jpSales}" id="inputSalesJP">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputSalesOther" class="form-label">Sales in Other Regions</label>
-                                    <input type="text" class="form-control" th:field="*{otherSales}" id="inputSalesOther">
-                                </div>
-                                <div class="col-12">
-                                    <label for="inputSalesOther" class="form-label">Global Sales</label>
-                                    <input type="text" class="form-control" th:field="*{globalSales}" id="inputSalesGlobal">
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
-                        </div>
-        </main>
+                            <div class="col-12">
+                                <label for="inputVideogame" class="form-label">Videogame</label>
+                                <input type="text" class="form-control" th:field="*{name}" id="inputVideogame">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPlatform" class="form-label">Platform</label>
+                                <input type="text" class="form-control" th:field="*{platform}" id="inputPlatform">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputYear" class="form-label">Year</label>
+                                <input type="text" class="form-control" th:field="*{year}" id="inputYear">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputGenre" class="form-label">Genre</label>
+                                <input type="text" class="form-control" th:field="*{genre}" id="inputGenre">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputPublisher" class="form-label">Publisher</label>
+                                <input type="text" class="form-control" th:field="*{publisher}" id="inputPublisher">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputSalesNA" class="form-label">Sales in North America</label>
+                                <input type="text" class="form-control" th:field="*{naSales}" id="inputSalesNA">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputSalesEU" class="form-label">Sales in Europe</label>
+                                <input type="text" class="form-control" th:field="*{euSales}" id="inputSalesEU">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputSalesJP" class="form-label">Sales in Japan</label>
+                                <input type="text" class="form-control" th:field="*{jpSales}" id="inputSalesJP">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputSalesOther" class="form-label">Sales in Other Regions</label>
+                                <input type="text" class="form-control" th:field="*{otherSales}" id="inputSalesOther">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputSalesGlobal" class="form-label">Global Sales</label>
+                                <input type="text" class="form-control" th:field="*{globalSales}" id="inputSalesGlobal">
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-aqua">Save</button>
+                            </div>
+                        </form>
+                    </div> <!-- Cierre del div form-container -->
+                </div> <!-- Cierre del div form-box -->
+            </div>
+        </div>
         <footer class="bg-light py-4 mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
@@ -128,9 +140,8 @@
                 </div>
             </div>
         </footer>
-    </div>
-</div>
-
+    </div> <!-- Cierre del div layoutSidenav_content -->
+</div> <!-- Cierre del div layoutSidenav -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/scripts.js"></script>
 </body>

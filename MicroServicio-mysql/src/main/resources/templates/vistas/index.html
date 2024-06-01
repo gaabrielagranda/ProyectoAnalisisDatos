@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Dashboard - Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="https://app.powerbi.com/reportEmbed?reportId=2e1f86c0-4f4f-49a7-b129-eb6d911e9ae8&autoAuth=true&ctid=f358133d-4e22-45e5-a09a-d4bde299ed4d">
@@ -18,7 +18,7 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" th:href="@{/dashboard/inicio}">AnalyticWave</a>
+    <a class="navbar-brand ps-3" th:href="@{/dashboard/inicio}">Lugave</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
             class="fas fa-bars"></i></button>
@@ -46,18 +46,18 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" th:href="@{/dashboard/index}">
+                    <div class="sb-sidenav-menu-heading">General</div>
+                    <a class="nav-link" th:href="@{/dashboard/inicio}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
-                    <div class="sb-sidenav-menu-heading">Interface</div>
+                    <div class="sb-sidenav-menu-heading">New</div>
                     <a class="nav-link" th:href="@{/dashboard/formData}"
                        th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Insert Data
                     </a>
-                    <div class="sb-sidenav-menu-heading">Addons</div>
+                    <div class="sb-sidenav-menu-heading">Other Actions</div>
                     <a class="nav-link" th:href="@{/dashboard/charts}" target="_blank">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Charts
@@ -83,11 +83,11 @@
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Dashboard</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Lugave</li>
                 </ol>
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
+                        <div class="card custom-bg-1 text-white mb-4">
                             <div class="card-body">
                                 Total sales <br>
                                 <span style="font-size: 2.1rem" th:text="${totalSales[0].totalGlobal}"></span>
@@ -99,11 +99,10 @@
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
+                        <div class="card custom-bg-2 text-white mb-4">
                             <div class="card-body">
-                                Avarage Total Sales <br>
+                                Average Total Sales <br>
                                 <span style="font-size: 2.1rem" th:text="${promedioTotalSales[0].totalGlobal}"></span>
-
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a class="small text-white stretched-link" href="#">View Details</a>
@@ -112,11 +111,10 @@
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
+                        <div class="card custom-bg-3 text-white mb-4">
                             <div class="card-body">
                                 Total documents <br>
                                 <span style="font-size: 2.1rem" th:text="${countDocument.totalDocument}"></span>
-
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a class="small text-white stretched-link" href="#">View Details</a>
@@ -125,11 +123,10 @@
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
+                        <div class="card custom-bg-4 text-white mb-4">
                             <div class="card-body">
                                 Most popular genre <br>
                                 <span style="font-size: 2.1rem" th:text="${genreVideoGame[0].genre}"></span>
-
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a class="small text-white stretched-link" href="#">View Details</a>
@@ -142,7 +139,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
-                        DataTable Example
+                        Data table
                     </div>
                     <div class="card-body">
                         <table id="datatablesSimple">
@@ -199,7 +196,7 @@
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div class="text-muted">Copyright &copy; Lugave 2024</div>
                     <div>
                         <a href="#">Privacy Policy</a>
                         &middot;

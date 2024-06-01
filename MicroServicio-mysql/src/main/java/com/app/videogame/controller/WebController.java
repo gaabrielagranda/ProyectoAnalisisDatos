@@ -54,8 +54,6 @@ public class WebController {
             model.addAttribute("usuario", null);
         }
 
-
-
         return "/web/profile";
     }
 

@@ -73,8 +73,8 @@
   --bs-border-radius-xl: 1rem;
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #0d6efd;
-  --bs-link-hover-color: #0a58ca;
+  --bs-link-color: #74245F;
+  --bs-link-hover-color: #5e1c4d;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
@@ -2862,19 +2862,19 @@ textarea.form-control-lg {
 
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #0d6efd;
-  --bs-btn-border-color: #0d6efd;
+  --bs-btn-bg: #a13284;
+  --bs-btn-border-color: #a13284;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #0b5ed7;
-  --bs-btn-hover-border-color: #0a58ca;
+  --bs-btn-hover-bg: #74245F;
+  --bs-btn-hover-border-color: #74245F;
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #0a58ca;
-  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-bg: #c544a2;
+  --bs-btn-active-border-color: #c544a2;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #0d6efd;
-  --bs-btn-disabled-border-color: #0d6efd;
+  --bs-btn-disabled-bg: #5e1c4d;
+  --bs-btn-disabled-border-color: #5e1c4d;
 }
 
 .btn-secondary {
@@ -6671,35 +6671,22 @@ textarea.form-control-lg {
   content: "";
 }
 
-.text-bg-primary {
-  color: #fff !important;
-  background-color: RGBA(13, 110, 253, var(--bs-bg-opacity, 1)) !important;
+.custom-bg-1 {
+  background-color: #a13284 !important;
 }
 
-.text-bg-secondary {
-  color: #fff !important;
-  background-color: RGBA(108, 117, 125, var(--bs-bg-opacity, 1)) !important;
+.custom-bg-2 {
+  background-color: #74245F !important;
 }
 
-.text-bg-success {
-  color: #fff !important;
-  background-color: RGBA(25, 135, 84, var(--bs-bg-opacity, 1)) !important;
+.custom-bg-3 {
+  background-color: #c544a2 !important;
 }
 
-.text-bg-info {
-  color: #000 !important;
-  background-color: RGBA(13, 202, 240, var(--bs-bg-opacity, 1)) !important;
+.custom-bg-4 {
+  background-color: #5e1c4d !important;
 }
 
-.text-bg-warning {
-  color: #000 !important;
-  background-color: RGBA(255, 193, 7, var(--bs-bg-opacity, 1)) !important;
-}
-
-.text-bg-danger {
-  color: #fff !important;
-  background-color: RGBA(220, 53, 69, var(--bs-bg-opacity, 1)) !important;
-}
 
 .text-bg-light {
   color: #000 !important;
@@ -11130,7 +11117,7 @@ body {
 .datatable-pagination .active a,
 .datatable-pagination .active a:focus,
 .datatable-pagination .active a:hover {
-  background-color: #0d6efd;
+  background-color: #5e1c4d;
 }
 
 .datatable-pagination .ellipsis a,
@@ -11241,3 +11228,30 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
+/* ESTILOS PARA EL FORMULARIO*/
+.form-box {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.btn-aqua {
+  background-color: #a13284;
+  border-color: #a13284;
+  color: #fff;
+}
+
+.btn-aqua:hover {
+  background-color: #74245F;
+  border-color: #74245F;
+  color: #fff;
+}
+
